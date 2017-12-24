@@ -1,16 +1,32 @@
 import {inject} from 'aurelia-framework';
+import { EventAggregator } from 'aurelia-event-aggregator';
 import {PostService} from './services/post-service';
 
-@inject (PostService)
+@inject (EventAggregator, PostService)
 export class App {
 
-  constructor(PostService) {
+  constructor(EventAggregator, PostService) {
+    this.eventAggregator = EventAggregator;
   	this.postService = PostService;
   }
 
   bind() {
-  	this.allTags = this.postService.allTags();
-  	this.allArchives = this.postService.allArchives();
+    this.refreshSidebar();
+  }
+
+  attached() {
+    this.subscriber = this.eventAggregator.subscribe('newpost', response => {
+      this.refreshSidebar();
+    });
+  }
+
+  detached() {
+    this.subscriber.dispose();
+  }
+
+  refreshSidebar() {
+    this.allTags = this.postService.allTags();
+    this.allArchives = this.postService.allArchives();
   }
 
   configureRouter(config, router) {

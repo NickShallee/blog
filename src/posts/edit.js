@@ -1,13 +1,15 @@
 import {inject} from 'aurelia-framework';
+import {EventAggregator} from 'aurelia-event-aggregator';
 import {Router} from 'aurelia-router';
 import {PostService} from 'services/post-service';
 
-@inject (Router, PostService)
+@inject (EventAggregator, Router, PostService)
 export class Edit {
 
-	constructor(Router, PostService) {
-		this.postService = PostService;
+	constructor(EventAggregator, Router, PostService) {
+		this.eventAggregator = EventAggregator;
 		this.router = Router;
+		this.postService = PostService;
 	}
 
 	activate(params) {
@@ -16,6 +18,7 @@ export class Edit {
 
 	publish() {
 		this.postService.update(this.post);
+		this.eventAggregator.publish('newpost', new Date());
 		this.router.navigate('/');
 	}
 
