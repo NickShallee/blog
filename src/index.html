@@ -1,0 +1,16 @@
+<template>
+	<require from="./resources/value-converters/date-format"></require>
+	<h1>All Posts</h1>
+	<div repeat.for="post of allPosts">
+		<h3>
+			<a route-href="route: posts-show; params.bind: {id: post.id}">
+				${ post.title }
+			</a>
+		</h3>
+		<p class="text-muted">Posted by ${ post.author } on ${ post.created_at | dateFormat }</p>
+		<p><span repeat.for="tag of post.tags" class="label label-primary">${ tag }</span></p>
+		<p>
+			${ post.body }
+		</p>
+	</div>
+</template>

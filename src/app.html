@@ -1,0 +1,51 @@
+<template>
+  <require from="bootstrap/css/bootstrap.css"></require>
+
+	<nav class="navbar navbar-default">
+	  <div class="container">
+	    <!-- Brand and toggle get grouped for better mobile display -->
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand" href="#">Nick's Blog</a>
+	    </div>
+
+	    <ul class="nav navbar-nav navbar-right">
+        	<li><a route-href="posts-create">+ Create New Post</a></li>
+    	</ul>
+
+	  </div><!-- /.container-fluid -->
+	</nav>
+
+  <div class="container">
+	  <div class='col-md-9'>
+	  	<router-view></router-view>
+	  </div>
+	  <div class="col-md-3">
+		<div class="panel panel-default">
+		  <div class="panel-heading">
+		    <h3 class="panel-title">Archives</h3>
+		  </div>
+		  <div class="panel-body">
+		    <ul>
+		    	<li repeat.for="archive of allArchives">${ archive }</li>
+		    </ul>
+		  </div>
+		</div>
+		<div class="panel panel-default">
+		  <div class="panel-heading">
+		    <h3 class="panel-title">Tags</h3>
+		  </div>
+		  <div class="panel-body">
+		    <ul>
+		    	<li repeat.for="tag of allTags">${ tag }</li>
+		    </ul>
+		  </div>
+		</div>
+	  </div>
+	</div>
+</template>
